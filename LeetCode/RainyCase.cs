@@ -289,5 +289,55 @@ namespace LeetCode
             return pick1;
         }
 
+        public void LongestPalindromeTest()
+        {
+            var result = LongestPalindrome("DBCCBD");
+        }
+
+        public string LongestPalindrome(string s)
+        {
+            int maxLen = 0;
+            string pStr = null;
+            int Palindrome(int idx)
+            {
+                int len = 1;
+
+                while (idx + len < s.Length && idx - len >= 0 && s[idx + len] == s[idx - len])
+                {
+                    len++;
+                }
+                return 2 * len - 1;
+            }
+
+            int PalindromeD(int idx)
+            {
+                // B D C C D B
+                // 0 1 2 3 4 5
+                int len = 0;
+
+                while (idx + len + 1 < s.Length && idx - len >= 0 && s[idx + len + 1] == s[idx - len])
+                {
+                    len++;
+                }
+                return 2 * len;
+            }
+            for (int i = 0; i < s.Length; i++)
+            {
+                var len = Palindrome(i);
+                if (len > maxLen)
+                {
+                    maxLen = len;
+                    pStr = s.Substring(i - len / 2, len);
+                }
+                len = PalindromeD(i);
+                if (len > maxLen)
+                {
+                    maxLen = len;
+                    pStr = s.Substring(i - len / 2 + 1, len);
+                }
+            }
+            return pStr;
+        }
+
     }
 }
