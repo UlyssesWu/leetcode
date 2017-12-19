@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -155,6 +156,137 @@ namespace LeetCode
                 length = stack.Count;
             }
             return length;
+        }
+
+        public void FindMedianSortedArraysTest()
+        {
+            var answer = FindMedianSortedArrays(new int[] {1}, new[] {2,3,4});
+        }
+        public double FindMedianSortedArrays(int[] nums1, int[] nums2)
+        {
+            var aLen = nums1.Length;
+            var bLen = nums2.Length;
+            var total = aLen + bLen;
+            var count = 0;
+            var aPtr = 0;
+            var bPtr = 0;
+
+            //if (nums1.Length == 0 || nums2.Length == 0)
+            //{
+            //    goto LBL;
+            //}
+
+            //var aFirst = nums1[0];
+            //var aLast = nums1[nums1.Length - 1];
+            //var bFirst = nums2[0];
+            //var bLast = nums2[nums2.Length - 1];
+
+            //if (aLast < bFirst) //a < b
+            //{
+            //    if (aLen > bLen) //located in a
+            //    {
+            //        var id = Math.Ceiling(total / 2.0);
+            //        return nums1[(int)id - 1];
+            //    }
+            //    else if (aLen == bLen)
+            //    {
+            //        return (aLast + bFirst) / 2.0;
+            //    }
+            //    else //located in b
+            //    {
+            //        var id = Math.Ceiling(total / 2.0);
+            //        return nums2[(int)id - aLen - 1];
+            //    }
+            //}
+            //if (aFirst > bLast) // a > b
+            //{
+            //    if (aLen < bLen) //located in b
+            //    {
+            //        var id = Math.Ceiling(total / 2.0);
+            //        return nums2[(int)id - 1];
+            //    }
+            //    else if (aLen == bLen)
+            //    {
+            //        return (aLast + bFirst) / 2.0;
+            //    }
+            //    else //located in a
+            //    {
+            //        var id = Math.Ceiling(total / 2.0);
+            //        return nums1[(int)id - bLen - 1];
+            //    }
+            //}
+            //LBL:
+
+            int pick;
+            bool pickTwo = false;
+            if (total % 2 == 0)
+            {
+                pick = total / 2;
+                pickTwo = true;
+            }
+            else
+            {
+                pick = total / 2 + 1;
+            }
+
+            int pick1 = 0, pick2 = 0;
+                
+            void SelectA()
+            {
+                if (count == pick)
+                {
+                    pick1 = nums1[aPtr];
+                }
+                else if (pickTwo && count == pick + 1)
+                {
+                    pick2 = nums1[aPtr];
+                }
+                aPtr++;
+            }
+
+            void SelectB()
+            {
+                if (count == pick)
+                {
+                    pick1 = nums2[bPtr];
+                }
+                else if (pickTwo && count == pick + 1)
+                {
+                    pick2 = nums2[bPtr];
+                }
+                bPtr++;
+            }
+
+            while (true)
+            {
+                count++;
+                if (count > pick + 1 || (!pickTwo && count > pick))
+                {
+                    break;
+                }
+                if (bPtr >= nums2.Length)
+                {
+                    SelectA();
+                }
+                else if (aPtr >= nums1.Length)
+                {
+                    SelectB();
+                }
+                else if (nums1[aPtr] < nums2[bPtr])
+                {
+                    SelectA();
+                }
+                else
+                {
+                    SelectB();
+                }
+
+            }
+            if (pickTwo)
+            {
+                return (pick1 + pick2) / 2.0;
+            }
+            return pick1;
         }
 
     }
