@@ -407,5 +407,30 @@ namespace LeetCode
             }
             return (int)s;
         }
+
+        public void IsPalindromeTest()
+        {
+            var b = IsPalindrome(1235321);
+        }
+
+        public bool IsPalindrome(int x)
+        {
+            if (x < 0)
+            {
+                return false;
+            }
+            if (x == 0)
+            {
+                return true;
+            }
+            int ori = x, darkForest = 0;
+            while (x != 0)
+            {
+                darkForest *= 10;
+                darkForest += x % 10;
+                x /= 10;
+            }
+            return ori == darkForest;
+        }
     }
 }
