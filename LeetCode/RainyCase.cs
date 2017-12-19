@@ -127,6 +127,35 @@ namespace LeetCode
 
             return nodeResult;
         }
+        public void LengthOfLongestSubstringTest()
+        {
+            LengthOfLongestSubstring("bpfbhmipx");
+        }
+        public int LengthOfLongestSubstring(string s)
+        {
+            int length = 0;
+            List<char> stack = new List<char>(s.Length);
+            for (int i = 0; i < s.Length; i++)
+            {
+                var c = s[i];
+                if (stack.Contains(s[i]))
+                {
+                    if (stack.Count > length)
+                    {
+                        length = stack.Count;
+                    }
+                    var idx = stack.IndexOf(s[i]);
+                    stack.RemoveRange(0, idx + 1);
+                }
+                stack.Add(s[i]);
+                //var cc = new string(stack.ToArray());
+            }
+            if (stack.Count > length)
+            {
+                length = stack.Count;
+            }
+            return length;
+        }
 
     }
 }
