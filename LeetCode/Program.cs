@@ -14,7 +14,7 @@ namespace LeetCode
             //Rainy: easy
             //Snowy: hard
             //Sunny: super hard
-            //Cloudy: boring / archived
+            //Cloudy: boring / silly / archived
         }
     }
 }

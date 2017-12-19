@@ -30,11 +30,11 @@ namespace LeetCode
             for (int j = 0; j < s.Length; j++)
             {
                 stack[ptr].Add(s[j]);
-                if (up && ptr < numRows-1)
+                if (up && ptr < numRows - 1)
                 {
                     ptr++;
                 }
-                else if(!up && ptr > 0)
+                else if (!up && ptr > 0)
                 {
                     ptr--;
                 }
@@ -49,5 +49,7 @@ namespace LeetCode
             }
             return sb.ToString();
         }
+
+
     }
 }
