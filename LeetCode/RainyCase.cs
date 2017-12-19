@@ -338,5 +338,74 @@ namespace LeetCode
             }
             return pStr;
         }
+
+        public void ReverseTest()
+        {
+            int t = -2147483648;
+            var stopwatch = Stopwatch.StartNew();
+            var i = Reverse(t);
+            stopwatch.Stop();
+            var time = stopwatch.ElapsedTicks; //15000
+
+            stopwatch = Stopwatch.StartNew();
+            i = Reverse2(t);
+            stopwatch.Stop();
+            time = stopwatch.ElapsedTicks; //330
+        }
+
+        public int Reverse(int x)
+        {
+            bool neg = x < 0;
+            if (neg)
+            {
+                if (x == int.MinValue)
+                {
+                    return 0;
+                }
+                x = Math.Abs(x);
+            }
+            var s = long.Parse(new string(x.ToString().Reverse().ToArray()));
+            if (neg)
+            {
+                s = -s;
+            }
+            if (s > int.MaxValue || s < int.MinValue)
+            {
+                return 0;
+            }
+            return (int)s;
+        }
+
+        public int Reverse2(int x)
+        {
+            bool neg = x < 0;
+            if (neg)
+            {
+                if (x == int.MinValue)
+                {
+                    return 0;
+                }
+                x = Math.Abs(x);
+            }
+            long s = 0;
+            int step = 10;
+            while (x != 0)
+            {
+                s *= 10;
+                var n = x % step;
+                s = s + n;
+                x = (x - n) / 10;
+            }
+
+            if (neg)
+            {
+                s = -s;
+            }
+            if (s > int.MaxValue || s < int.MinValue)
+            {
+                return 0;
+            }
+            return (int)s;
+        }
     }
 }
