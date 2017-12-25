@@ -40,7 +40,7 @@ namespace LeetCode
         public void AddTwoNumbersTest()
         {
             //Alive makes me alive.
-            ListNode l1 = new ListNode(1){next = new ListNode(8)};
+            ListNode l1 = new ListNode(1) { next = new ListNode(8) };
             ListNode l2 = new ListNode(0);
             Stopwatch stopwatch = Stopwatch.StartNew();
             AddTwoNumbers(l1, l2);
@@ -160,7 +160,7 @@ namespace LeetCode
 
         public void FindMedianSortedArraysTest()
         {
-            var answer = FindMedianSortedArrays(new int[] {1}, new[] {2,3,4});
+            var answer = FindMedianSortedArrays(new int[] { 1 }, new[] { 2, 3, 4 });
         }
         public double FindMedianSortedArrays(int[] nums1, int[] nums2)
         {
@@ -230,7 +230,7 @@ namespace LeetCode
             }
 
             int pick1 = 0, pick2 = 0;
-                
+
             void SelectA()
             {
                 if (count == pick)
@@ -430,6 +430,28 @@ namespace LeetCode
                 x /= 10;
             }
             return ori == darkForest;
+        }
+
+        public void IntToRomanTest()
+        {
+            var ans = IntToRoman(3999);
+        }
+
+        public string IntToRoman(int num)
+        {
+            //I（1）、X（10）、C（100）、M（1000）、V（5）、L（50）、D（500）
+            List<string[]> c = new List<string[]>{
+            new []{"","I","II","III","IV","V","VI","VII","VIII","IX"},
+            new []{"","X","XX","XXX","XL","L","LX","LXX","LXXX","XC"},
+            new []{"","C","CC","CCC","CD","D","DC","DCC","DCCC","CM"},
+            new []{"","M","MM","MMM"}};
+            StringBuilder sb = new StringBuilder(15);
+            sb.Append(c[3][num / 1000 % 10]);
+            sb.Append(c[2][num / 100 % 10]);
+            sb.Append(c[1][num / 10 % 10]);
+            sb.Append(c[0][num % 10]);
+
+            return sb.ToString();
         }
     }
 }
