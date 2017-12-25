@@ -341,7 +341,7 @@ namespace LeetCode
 
         public void ReverseTest()
         {
-            int t = -2147483648;
+            int t = 123456789;
             var stopwatch = Stopwatch.StartNew();
             var i = Reverse(t);
             stopwatch.Stop();
@@ -388,11 +388,10 @@ namespace LeetCode
                 x = Math.Abs(x);
             }
             long s = 0;
-            int step = 10;
             while (x != 0)
             {
                 s *= 10;
-                var n = x % step;
+                var n = x % 10;
                 s = s + n;
                 x = (x - n) / 10;
             }
@@ -410,7 +409,7 @@ namespace LeetCode
 
         public void IsPalindromeTest()
         {
-            var b = IsPalindrome(1235321);
+            var b = IsPalindrome(2100000009);
         }
 
         public bool IsPalindrome(int x)
@@ -426,7 +425,7 @@ namespace LeetCode
             int ori = x, darkForest = 0;
             while (x != 0)
             {
-                darkForest *= 10;
+                darkForest *= 10; //It won't need to handle overflow since the overflow destroy the possibility of equal
                 darkForest += x % 10;
                 x /= 10;
             }
