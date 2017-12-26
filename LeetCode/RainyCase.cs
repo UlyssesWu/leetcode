@@ -435,6 +435,8 @@ namespace LeetCode
         public void IntToRomanTest()
         {
             var ans = IntToRoman(3999);
+            var a2 = RomanToInt2(ans);
+            a2 = RomanToInt2("XIV");
         }
 
         public string IntToRoman(int num)
@@ -452,6 +454,70 @@ namespace LeetCode
             sb.Append(c[0][num % 10]);
 
             return sb.ToString();
+        }
+
+
+
+        public int RomanToInt2(string s)
+        {
+            //I（1）、X（10）、C（100）、M（1000）、V（5）、L（50）、D（500）
+            int Val(char c)
+            {
+                switch (c)
+                {
+                    case 'I': return 1;
+                    case 'X': return 10;
+                    case 'C': return 100;
+                    case 'M': return 1000;
+                    case 'V': return 5;
+                    case 'L': return 50;
+                    case 'D': return 500;
+                    case 'N': default: return 0; //Me? I'm Zero, I' Delta
+                }
+            }
+            var f = Val(s[0]);
+            var ans = f;
+            for (var i = 1; i < s.Length; i++)
+            {
+                var cur = Val(s[i]);
+                if (f > 0 && f < cur)
+                {
+                    ans = ans - f + cur - f;
+                    f = 0;
+                }
+                else
+                {
+                    ans += cur;
+                    f = cur;
+                }
+            }
+
+            return ans;
+        }
+
+        public int RomanToInt(string s)
+        {
+            List<string[]> c = new List<string[]>{
+            new []{"","I","II","III","IV","V","VI","VII","VIII","IX"},
+            new []{"","X","XX","XXX","XL","L","LX","LXX","LXXX","XC"},
+            new []{"","C","CC","CCC","CD","D","DC","DCC","DCCC","CM"},
+            new []{"","M","MM","MMM"}};
+            int[] pow = new[] { 1, 10, 100, 1000 };
+            int num = 0;
+            int ptr = 0;
+            for (int i = 3; i >= 0; i--)
+            {
+                for (int j = c[i].Length - 1; j >= 0; j--)
+                {
+                    if (s.Substring(ptr).StartsWith(c[i][j]))
+                    {
+                        num += j * pow[i];
+                        ptr += c[i][j].Length;
+                    }
+                }
+            }
+
+            return num;
         }
 
         public void JudgeCircleTest()
