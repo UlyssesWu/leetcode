@@ -551,6 +551,56 @@ namespace LeetCode
             return x == 0 && y == 0;
         }
 
+        public void LongestCommonPrefixTest()
+        {
+            var s = LongestCommonPrefix(new[] {"Helloworld", "Hello", "Hell"});
 
+        }
+
+        //Beat 90%+ C# Answers
+        public string LongestCommonPrefix(string[] strs)
+        {
+            if (strs.Length <= 0)
+            {
+                return "";
+            }
+
+            if (strs.Length == 1)
+            {
+                return strs[0];
+            }
+            var slist = strs.ToList();
+                slist.Sort((s1, s2) => s1.Length - s2.Length);
+
+            var most = slist[0];
+            if (most == "")
+            {
+                return most;
+            }
+
+            for (int i = 1; i < slist.Count; i++)
+            {
+                int count = most.Length;
+                for (int j = 0; j < most.Length; j++)
+                {
+                    if (slist[i][j] != most[j])
+                    {
+                        count = j;
+                        break;
+                    }
+                }
+
+                if (count == 0)
+                {
+                    return "";
+                }
+                if (count < most.Length)
+                {
+                    most = most.Substring(0, count);
+                }
+            }
+
+            return most;
+        }
     }
 }
