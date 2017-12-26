@@ -453,5 +453,36 @@ namespace LeetCode
 
             return sb.ToString();
         }
+
+        public void JudgeCircleTest()
+        {
+            var b = JudgeCircle("UD");
+            b = JudgeCircle("LLUUDDRR");
+        }
+
+        public bool JudgeCircle(string moves)
+        {
+            int x = 0, y = 0;
+            foreach (var move in moves)
+            {
+                switch (move)
+                {
+                    case 'L':
+                        x -= 1;
+                        break;
+                    case 'R':
+                        x += 1;
+                        break;
+                    case 'U':
+                        y += 1;
+                        break;
+                    case 'D':
+                        y -= 1;
+                        break;
+                }
+            }
+
+            return x == 0 && y == 0;
+        }
     }
 }
