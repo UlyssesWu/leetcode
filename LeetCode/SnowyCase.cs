@@ -147,5 +147,26 @@ namespace LeetCode
 
             return count;
         }
+        
+        //Give my knees to RandomG
+        //Just check UP-LEFT
+        public int CountBattleships(char[,] board)
+        {
+            var count = 0;
+            for (int y = 0; y < board.GetLength(1); y++)
+            {
+                for (int x = 0; x < board.GetLength(0); x++)
+                {
+                    if (board[x,y] == 'X')
+                    {
+                        if ((x == 0 || (board[x-1,y] != 'X')) && (y==0 || (board[x,y-1] != 'X')))
+                        {
+                            count++;
+                        }
+                    }
+                }
+            }
+            return count;
+        }
     }
 }

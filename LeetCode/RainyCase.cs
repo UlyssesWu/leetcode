@@ -686,6 +686,5 @@ namespace LeetCode
             return root;
         }
 
-        
     }
 }
