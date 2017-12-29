@@ -602,5 +602,45 @@ namespace LeetCode
 
             return most;
         }
+
+        public void SelfDividingNumbersTest()
+        {
+            var l = SelfDividingNumbers(10, 50);
+            foreach (var i in l)
+            {
+                var a = i;
+            }
+        }
+
+        public IList<int> SelfDividingNumbers(int left, int right)
+        {
+            return new List<int>(SelfDividingNumbersImpl(left, right));
+        }
+
+        public IEnumerable<int> SelfDividingNumbersImpl(int left, int right)
+        {
+            for (int i = left; i <= right; i++)
+            {
+                if (i < 10)
+                {
+                    yield return i;
+                    continue;
+                }
+                var cur = i;
+                while (cur > 0)
+                {
+                    var p = cur % 10;
+                    cur /= 10;
+                    if (p == 0) goto LBL;
+                    if (i % p != 0)
+                    {
+                        goto LBL;
+                    }
+                }
+
+                yield return i;
+                LBL:;
+            }
+        }
     }
 }
