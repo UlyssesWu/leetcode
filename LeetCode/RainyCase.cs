@@ -553,7 +553,7 @@ namespace LeetCode
 
         public void LongestCommonPrefixTest()
         {
-            var s = LongestCommonPrefix(new[] {"Helloworld", "Hello", "Hell"});
+            var s = LongestCommonPrefix(new[] { "Helloworld", "Hello", "Hell" });
 
         }
 
@@ -570,7 +570,7 @@ namespace LeetCode
                 return strs[0];
             }
             var slist = strs.ToList();
-                slist.Sort((s1, s2) => s1.Length - s2.Length);
+            slist.Sort((s1, s2) => s1.Length - s2.Length);
 
             var most = slist[0];
             if (most == "")
@@ -642,5 +642,50 @@ namespace LeetCode
                 LBL:;
             }
         }
+
+        // Definition for a binary tree node.
+        public class TreeNode
+        {
+            public int val;
+            public TreeNode left;
+            public TreeNode right;
+            public TreeNode(int x) { val = x; }
+        }
+
+        public void ConstructMaximumBinaryTreeTest()
+        {
+            //BGM: https://www.youtube.com/watch?v=82G_LQhaIfs
+            var node = ConstructMaximumBinaryTree(new[] {3, 2, 1, 6, 0, 5});
+        }
+
+        public TreeNode ConstructMaximumBinaryTree(int[] nums)
+        {
+            int IndexOf(ref int[] ns, int val)
+            {
+                for (var index = 0; index < ns.Length; index++)
+                {
+                    if (ns[index] == val)
+                    {
+                        return index;
+                    }
+                }
+
+                return 0;
+            }
+
+            if (nums == null || nums.Length == 0)
+            {
+                return null;
+            }
+            var max = nums.Max();
+            var id = IndexOf(ref nums, max);
+            TreeNode root = new TreeNode(max);
+            root.left = id == 0? null: ConstructMaximumBinaryTree(nums.Take(id).ToArray());
+            root.right = id == nums.Length -1? null: ConstructMaximumBinaryTree(nums.Skip(id + 1).ToArray());
+
+            return root;
+        }
+
+        
     }
 }
