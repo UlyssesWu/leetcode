@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace LeetCode
 {
@@ -147,7 +145,7 @@ namespace LeetCode
 
             return count;
         }
-        
+
         //Give my knees to RandomG
         //Just check UP-LEFT
         public int CountBattleships(char[,] board)
@@ -157,9 +155,9 @@ namespace LeetCode
             {
                 for (int x = 0; x < board.GetLength(0); x++)
                 {
-                    if (board[x,y] == 'X')
+                    if (board[x, y] == 'X')
                     {
-                        if ((x == 0 || (board[x-1,y] != 'X')) && (y==0 || (board[x,y-1] != 'X')))
+                        if ((x == 0 || (board[x - 1, y] != 'X')) && (y == 0 || (board[x, y - 1] != 'X')))
                         {
                             count++;
                         }
