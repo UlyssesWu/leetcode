@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Linq;
@@ -165,6 +166,95 @@ namespace LeetCode
                 }
             }
             return count;
+        }
+
+        public void FindMinArrowShotsTest()
+        {
+            //[[10,16], [2,8], [1,6], [7,12]]
+            //[[2,3],[7,15],[5,12],[4,5],[8,13],[9,16],[5,8],[8,16],[3,4],[8,17]]
+            //var 螳臂当车的歹徒 = new[,] {{10, 16}, {2, 8}, {1, 6}, {7, 12}};
+            var 螳臂当车的歹徒 = new[,] {{2, 3}, {7, 15}, {5, 12}, {4, 5}, {8, 13}, {9, 16}, {5, 8}, {8, 16}, {3, 4}, {8, 17}};
+            var 枪决报数 = FindMinArrowShots(螳臂当车的歹徒);
+        }
+
+        //public int FindMinArrowShots(int[,] points)
+        //{
+        //    var balloons = new List<Balloon>(points.GetLength(0));
+        //    for (var i = 0; i < points.GetLength(0); i++)
+        //    {
+        //        balloons.Add(new Balloon
+        //        {
+        //            Min = points[i, 0],
+        //            Max = points[i, 1],
+        //            Length = points[i, 1] - points[i, 0]
+        //        });
+        //    }
+        //    balloons = balloons.OrderBy(balloon => balloon.Min).ThenBy(balloon => balloon.Max).ToList(); //从小到大排序
+        //    var arrowCount = 0;
+        //    var b = balloons[0];
+        //    for (int i = 1; i < balloons.Count; i++)
+        //    {
+        //        if (balloons[i].Min < b.Max)
+        //        {
+
+        //        }
+        //    }
+
+
+
+        //    return arrowCount;
+        //}
+
+
+        public struct Balloon
+        {
+            public int Min;
+            public int Max;
+        }
+
+
+        public int FindMinArrowShots(int[,] points)
+        {
+            if (points.GetLength(0) == 0)
+            {
+                return 0;
+            }
+            if (points.GetLength(0) == 1)
+            {
+                return 1;
+            }
+            var balloons = new List<Balloon>(points.GetLength(0));
+            for (var i = 0; i < points.GetLength(0); i++)
+            {
+                balloons.Add(new Balloon
+                {
+                    Min = points[i, 0],
+                    Max = points[i, 1],
+                });
+            }
+
+            balloons = balloons.OrderBy(balloon => balloon.Min).ThenBy(balloon => balloon.Max).ToList(); //从小到大排序
+
+            var arrowCount = 0;
+            var maxPtr = balloons[0].Max;
+            for (int i = 1; i < balloons.Count; i++)
+            {
+                if (balloons[i].Min > maxPtr)
+                {
+                    arrowCount++;
+                    maxPtr = balloons[i].Max;
+                }
+                else
+                {
+                    if (balloons[i].Max < maxPtr)
+                    {
+                        maxPtr = balloons[i].Max;
+                    }
+                }
+            }
+
+            arrowCount++;
+            return arrowCount;
         }
     }
 }
