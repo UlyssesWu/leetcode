@@ -709,5 +709,32 @@ namespace LeetCode
             var comp = a2 * b1 + a1 * b2;
             return $"{real}+{comp}i";
         }
+
+        public void MaximumSwapTest()
+        {
+            var result = MaximumSwap(2736);
+            result = MaximumSwap(1993);
+        }
+        public int MaximumSwap(int num)
+        {
+            var str = num.ToString("D");
+            var strlist = str.ToList();
+            strlist.Sort((c1, c2) => c2 - c1);
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (str[i] != strlist[i])
+                {
+                    var maxIdx = str.LastIndexOf(strlist[i]);
+                    var minIdx = i;
+                    var maxChr = strlist[i];
+                    var minChr = str[i];
+                    var result = str.ToCharArray();
+                    result[maxIdx] = minChr;
+                    result[minIdx] = maxChr;
+                    return int.Parse(new string(result));
+                }
+            }
+            return num;
+        }
     }
 }
