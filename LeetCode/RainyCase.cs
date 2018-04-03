@@ -736,5 +736,36 @@ namespace LeetCode
             }
             return num;
         }
+
+        public void SortColorsTest()
+        {
+            int[] arr = {0, 2, 1, 2, 1, 1, 0};
+            SortColors(arr);
+            var r = arr;
+        }
+
+
+        public void SortColors(int[] nums)
+        {
+            // 1-pass
+            int headPtr = 0, endPtr = nums.Length - 1, ptr = 0;
+            while (ptr <= endPtr)
+            {
+                if (nums[ptr] == 0)
+                {
+                    nums[ptr] = nums[headPtr];
+                    nums[headPtr] = 0;
+                    headPtr++;
+                }
+                if (nums[ptr] == 2)
+                {
+                    nums[ptr] = nums[endPtr];
+                    nums[endPtr] = 2;
+                    endPtr--;
+                    ptr--;
+                }
+                ptr++;
+            }
+        }
     }
 }
