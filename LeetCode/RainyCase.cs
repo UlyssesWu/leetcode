@@ -655,7 +655,7 @@ namespace LeetCode
         public void ConstructMaximumBinaryTreeTest()
         {
             //BGM: https://www.youtube.com/watch?v=82G_LQhaIfs
-            var node = ConstructMaximumBinaryTree(new[] {3, 2, 1, 6, 0, 5});
+            var node = ConstructMaximumBinaryTree(new[] { 3, 2, 1, 6, 0, 5 });
         }
 
         public TreeNode ConstructMaximumBinaryTree(int[] nums)
@@ -680,8 +680,8 @@ namespace LeetCode
             var max = nums.Max();
             var id = IndexOf(ref nums, max);
             TreeNode root = new TreeNode(max);
-            root.left = id == 0? null: ConstructMaximumBinaryTree(nums.Take(id).ToArray());
-            root.right = id == nums.Length -1? null: ConstructMaximumBinaryTree(nums.Skip(id + 1).ToArray());
+            root.left = id == 0 ? null : ConstructMaximumBinaryTree(nums.Take(id).ToArray());
+            root.right = id == nums.Length - 1 ? null : ConstructMaximumBinaryTree(nums.Skip(id + 1).ToArray());
 
             return root;
         }
@@ -739,7 +739,7 @@ namespace LeetCode
 
         public void SortColorsTest()
         {
-            int[] arr = {0, 2, 1, 2, 1, 1, 0};
+            int[] arr = { 0, 2, 1, 2, 1, 1, 0 };
             SortColors(arr);
             var r = arr;
         }
@@ -766,6 +766,55 @@ namespace LeetCode
                 }
                 ptr++;
             }
+        }
+
+        public void MaxAreaTest()
+        {
+            int[] h = new[] {1, 8, 6, 2, 5, 4, 8, 3, 7};
+            var area = MaxArea(h);
+        }
+
+        //11. Container With Most Water
+        public int MaxArea(int[] height)
+        {
+            var left = 0;
+            var right = height.Length - 1;
+            var bestLeft = left;
+            var bestRight = right;
+            var currentArea = 0;
+            var bestArea = 0;
+            if (height.Length < 2)
+            {
+                return 0;
+            }
+
+            while (true)
+            {
+                var length = right - left;
+                var min = Math.Min(height[left], height[right]);
+                var area = length * min;
+                if (area > bestArea)
+                {
+                    bestArea = area;
+                    bestLeft = left;
+                    bestRight = right;
+                }
+
+                if (min == height[left])
+                {
+                    left++;
+                }
+                else
+                {
+                    right--;
+                }
+                if (right <= left)
+                {
+                    break;
+                }
+            }
+
+            return bestArea;
         }
     }
 }
