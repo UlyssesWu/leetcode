@@ -29,15 +29,7 @@ namespace LeetCode
             }
             return new int[] { };
         }
-
-
-        public class ListNode
-        {
-            public int val;
-            public ListNode next;
-            public ListNode(int x) { val = x; }
-        }
-
+        
         public void AddTwoNumbersTest()
         {
             //Alive makes me alive.

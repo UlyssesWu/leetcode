@@ -25,7 +25,7 @@ namespace LeetCode.Nowcoder
         public static ulong GuessNum(int i)
         {
             //数论：筛法求范围内质数
-            BitArray primeArr = new BitArray(i + 1, true) {[1] = false};
+            BitArray primeArr = new BitArray(i + 1, true) { [1] = false };
             for (int k = 2; k <= Math.Sqrt(i); k++)
             {
                 for (int j = k; j * k <= i; j++)
@@ -130,7 +130,7 @@ namespace LeetCode.Nowcoder
 
         public void TestReconstruct()
         {
-            var head = reConstructBinaryTree(new[] {1, 2, 4, 5, 8, 9, 3, 6, 7}, new[] {4, 2, 8, 5, 9, 1, 6, 3, 7});
+            var head = reConstructBinaryTree(new[] { 1, 2, 4, 5, 8, 9, 3, 6, 7 }, new[] { 4, 2, 8, 5, 9, 1, 6, 3, 7 });
             //var a = head.val;
             //a = head.left.val;
             //a = head.left.left.val;
@@ -146,7 +146,7 @@ namespace LeetCode.Nowcoder
             a = head.left.val;
 
         }
-        
+
         public TreeNode reConstructBinaryTree(int[] pre, int[] tin)
         {
             //P171
@@ -172,6 +172,199 @@ namespace LeetCode.Nowcoder
             var rightTin = tin.Skip(index + 1).ToList();
             head.right = Reconstruct(rightPre, rightTin);
             return head;
+        }
+
+        public Stack<int> _stack1 = new Stack<int>();
+        public Stack<int> _stack2 = new Stack<int>();
+
+        public void TestStack()
+        {
+            push(1);
+            push(2);
+            var r = pop();
+        }
+        public void push(int node)
+        {
+            _stack1.Push(node);
+        }
+        public int pop()
+        {
+            if (_stack2.Count <= 0)
+            {
+                while (_stack1.Count > 0)
+                {
+                    _stack2.Push(_stack1.Pop());
+                }
+            }
+            return _stack2.Pop();
+        }
+
+        public int minNumberInRotateArray(int[] rotateArray)
+        {
+            // write code here
+            //return rotateArray.Min();
+            if (rotateArray.Length == 0) return 0;
+            for (var i = 1; i < rotateArray.Length; i++)
+            {
+                if (rotateArray[i] < rotateArray[i - 1])
+                    return rotateArray[i];
+            }
+            return rotateArray[0];
+        }
+
+        public int jumpFloor(int number)
+        {
+            // write code here
+            if (number < 1)
+            {
+                return 0;
+            }
+            if (number == 1)
+            {
+                return 1;
+            }
+
+            if (number == 2)
+            {
+                return 2;
+            }
+            //N: N-1 jmp 1; N-2 jmp 2; therefore (N-1)+(N-2)
+
+            return jumpFloor(number - 2) + jumpFloor(number - 1);
+        }
+
+        public int jumpFloorII(int number)
+        {
+            // write code here
+            if (number < 1)
+            {
+                return 0;
+            }
+            if (number == 1)
+            {
+                return 1;
+            }
+
+            if (number == 2)
+            {
+                return 2;
+            }
+
+            return 2 * jumpFloorII(number - 1);
+        }
+
+        public int rectCover(int number)
+        {
+            // write code here
+            if (number < 1)
+            {
+                return 0;
+            }
+            if (number == 1)
+            {
+                return 1;
+            }
+
+            if (number == 2)
+            {
+                return 2;
+            }
+
+            return rectCover(number - 1) + rectCover(number - 2);
+        }
+
+        public int NumberOf1(int n)
+        {
+            return Convert.ToString(n, 2).Count(c => c == '1');
+        }
+
+        public void PowerTest()
+        {
+            var ans = Power(2.0, 3);
+        }
+
+        public double Power(double thebase, int exponent)
+        {
+            //return Math.Pow(thebase, exponent);
+            if (thebase == 0.0)
+            {
+                return 0.0;
+            }
+            long p = Math.Abs(exponent);
+            double r = 1.0;
+            while (p != 0)
+            {
+                if ((p & 1) != 0) r *= thebase;
+                thebase *= thebase;
+                p >>= 1;
+            }
+
+            return ( exponent < 0 ? 1.0 / r : r );
+        }
+
+        public int[] reOrderArray(int[] array)
+        {
+            // write code here
+            var g = array.GroupBy(i => i % 2 == 0);
+            if (g.Count() <= 1)
+            {
+                return array;
+            }
+
+            var result = g.First().Key ? g.Last().Concat(g.First()) : g.First().Concat(g.Last());
+            return result.ToArray();
+        }
+
+        public ListNode FindKthToTail(ListNode head, int k)
+        {
+            // write code here
+            int count = 0;
+            ListNode node = head;
+            while (node != null)
+            {
+                count++;
+                node = node.next;
+            }
+
+            if (k > count || k < 0)
+            {
+                return null;
+            }
+            var index = count - k;
+            node = head;
+            for (int i = 0; i < index; i++)
+            {
+                node = node?.next;
+            }
+
+            return node;
+        }
+
+        public void ReverseListTest()
+        {
+            ListNode ln = new ListNode(1);
+            ln.next = new ListNode(2);
+            ln.next.next = new ListNode(3);
+            var l = ReverseList(ln).val;
+        }
+
+        public ListNode ReverseList(ListNode pHead)
+        {
+            // write code here
+            if (pHead == null)
+                return null;
+            ListNode pCur = pHead;
+            ListNode pNext = pHead?.next;
+            pHead.next = null;
+            while (pNext != null)
+            {
+                var pNn = pNext.next;
+                pNext.next = pCur;
+                pCur = pNext;
+                pNext = pNn;
+            }
+
+            return pCur;
         }
     }
 }
