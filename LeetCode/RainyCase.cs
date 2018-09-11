@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using LeetCode.Common;
 
 namespace LeetCode
 {
@@ -641,15 +642,6 @@ namespace LeetCode
                 yield return i;
                 LBL:;
             }
-        }
-
-        // Definition for a binary tree node.
-        public class TreeNode
-        {
-            public int val;
-            public TreeNode left;
-            public TreeNode right;
-            public TreeNode(int x) { val = x; }
         }
 
         public void ConstructMaximumBinaryTreeTest()

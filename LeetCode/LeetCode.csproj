@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CloudyCase.cs" />
+    <Compile Include="Common\DataStruct.cs" />
     <Compile Include="Nowcoder\RandomG.cs" />
     <Compile Include="RainyCase.cs" />
     <Compile Include="Program.cs" />

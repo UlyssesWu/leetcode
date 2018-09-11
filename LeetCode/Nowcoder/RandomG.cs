@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using LeetCode.Common;
 
 namespace LeetCode.Nowcoder
 {
@@ -87,6 +89,89 @@ namespace LeetCode.Nowcoder
             }
 
             return false;
+        }
+
+        public string replaceSpace(string str)
+        {
+            return str.Replace(" ", "%20");
+        }
+
+        public string replaceSpace2(string str)
+        {
+            int spaceCount = 0;
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (str[i] == ' ')
+                {
+                    spaceCount++;
+                }
+            }
+
+            if (spaceCount == 0)
+            {
+                return str;
+            }
+
+            StringBuilder sb = new StringBuilder(str.Length + spaceCount * 2);
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (str[i] == ' ')
+                {
+                    sb.Append("%20");
+                }
+                else
+                {
+                    sb.Append(str[i]);
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        public void TestReconstruct()
+        {
+            var head = reConstructBinaryTree(new[] {1, 2, 4, 5, 8, 9, 3, 6, 7}, new[] {4, 2, 8, 5, 9, 1, 6, 3, 7});
+            //var a = head.val;
+            //a = head.left.val;
+            //a = head.left.left.val;
+            //a = head.left.right.val;
+            //a = head.left.right.left.val;
+            //a = head.left.right.right.val;
+            //a = head.right.val;
+            //a = head.right.left.val;
+            //a = head.right.right.val;
+            //a = head.right.left.left.val;
+            //var head = reConstructBinaryTree(new[] { 1, 2, 4, 3, 5, 6 }, new[] { 4, 2, 1, 5, 3, 6 });
+            var a = head.val;
+            a = head.left.val;
+
+        }
+        
+        public TreeNode reConstructBinaryTree(int[] pre, int[] tin)
+        {
+            //P171
+            //front: 1,2,4,5,8,9,3,6,7
+            //middle:4,2,8,5,9,1,6,3,7
+            // write code here
+            return Reconstruct(pre.ToList(), tin.ToList());
+        }
+
+        public TreeNode Reconstruct(IList<int> pre, IList<int> tin)
+        {
+            if (pre.Count == 0)
+            {
+                return null;
+            }
+            TreeNode head = new TreeNode(pre[0]);
+            var index = tin.IndexOf(head.val);
+            var leftPre = pre.Skip(1).Take(index).ToList();
+            var leftTin = tin.Take(index).ToList();
+            head.left = Reconstruct(leftPre, leftTin);
+            //var remain = tin.Count - 1 - index;
+            var rightPre = pre.Skip(1 + index).ToList();
+            var rightTin = tin.Skip(index + 1).ToList();
+            head.right = Reconstruct(rightPre, rightTin);
+            return head;
         }
     }
 }
