@@ -54,5 +54,39 @@ namespace LeetCode.Nowcoder
 
             return (result);
         }
+
+        public void FindTest()
+        {
+
+        }
+        public bool Find(int target, int[][] array)
+        {
+            // write code here
+            return array.Any(a => a.Contains(target));
+        }
+
+        public bool Find2(int target, int[][] array)
+        {
+            // write code here
+            var x = array[0].Length - 1;
+            var y = 0;
+            while (x >= 0 && y >= 0 && y < array.Length && x < array[0].Length)
+            {
+                if (array[y][x] == target)
+                {
+                    return true;
+                }
+                if (array[y][x] < target)
+                {
+                    y++;
+                }
+                else if (array[y][x] > target)
+                {
+                    x--;
+                }
+            }
+
+            return false;
+        }
     }
 }
