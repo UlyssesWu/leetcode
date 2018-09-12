@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using LeetCode.Common;
 
@@ -253,7 +255,7 @@ namespace LeetCode.Nowcoder
             return 2 * jumpFloorII(number - 1);
         }
 
-        public int rectCover(int number)
+        public int RectCover(int number)
         {
             // write code here
             if (number < 1)
@@ -270,7 +272,7 @@ namespace LeetCode.Nowcoder
                 return 2;
             }
 
-            return rectCover(number - 1) + rectCover(number - 2);
+            return RectCover(number - 1) + RectCover(number - 2);
         }
 
         public int NumberOf1(int n)
@@ -299,10 +301,10 @@ namespace LeetCode.Nowcoder
                 p >>= 1;
             }
 
-            return ( exponent < 0 ? 1.0 / r : r );
+            return (exponent < 0 ? 1.0 / r : r);
         }
 
-        public int[] reOrderArray(int[] array)
+        public int[] ReOrderArray(int[] array)
         {
             // write code here
             var g = array.GroupBy(i => i % 2 == 0);
@@ -439,6 +441,76 @@ namespace LeetCode.Nowcoder
             }
 
             return head;
+        }
+
+        public bool HasSubtree(TreeNode pRoot1, TreeNode pRoot2)
+        {
+            // write code here
+            if (pRoot1 == null || pRoot2 == null)
+            {
+                return false;
+            }
+
+            return ContainsSubTree(pRoot1, pRoot2);
+        }
+
+        public bool ContainsSubTree(TreeNode pRoot1, TreeNode pRoot2)
+        {
+            return Check(pRoot1, pRoot2) || HasSubtree(pRoot1.left, pRoot2) || HasSubtree(pRoot1.right, pRoot2);
+        }
+
+        public bool Check(TreeNode t1, TreeNode t2)
+        {
+            if (t2 == null)
+            {
+                return true;
+            }
+
+            if (t1 == null || t1.val != t2.val)
+            {
+                return false;
+            }
+
+            return Check(t1.left, t2.left) && Check(t1.right, t2.right);
+        }
+
+        public void PrintMatrixTest()
+        {
+            int[][] m = new int[4][]
+                {new[] {1, 2, 3, 4}, new[] {5, 6, 7, 8}, new[] {9, 10, 11, 12}, new[] {13, 14, 15, 16}};
+            //int[][] m = new int[1][]
+            //    {new[] {1}};
+            var r = printMatrix(m);
+        }
+
+        public List<int> printMatrix(int[][] matrix)
+        {
+            int rows = matrix.Length;
+            int columns = matrix[0].Length;
+            int start = 0;
+            List<int> list = new List<int>();
+            while (rows > start * 2 && columns > start * 2)
+            {
+                printMatrixInCircle(matrix, rows, columns, start, list);
+                start++;
+            }
+            return list;
+        }
+
+        public void printMatrixInCircle(int[][] matrix, int rows, int columns, int start, List<int> list)
+        {
+            // 从左到右打印一行
+            for (int i = start; i < columns - start; i++)
+                list.Add(matrix[start][i]);
+            // 从上到下打印一列
+            for (int j = start + 1; j < rows - start; j++)
+                list.Add(matrix[j][columns - start - 1]);
+            // 从右到左打印一行
+            for (int m = columns - start - 2; m >= start && rows - start - 1 > start; m--)
+                list.Add(matrix[rows - start - 1][m]);
+            // 从下到上打印一列
+            for (int n = rows - start - 2; n >= start + 1 && columns - start - 1 > start; n--)
+                list.Add(matrix[n][start]);
         }
     }
 }
