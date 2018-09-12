@@ -366,5 +366,79 @@ namespace LeetCode.Nowcoder
 
             return pCur;
         }
+
+        public void MergeTest()
+        {
+            ListNode p1 = new ListNode(1);
+            p1.next = new ListNode(3);
+            p1.next.next = new ListNode(5);
+
+            ListNode p2 = new ListNode(2);
+            p2.next = new ListNode(4);
+            p2.next.next = new ListNode(6);
+
+            var p = Merge(p1, p2);
+        }
+
+        public ListNode Merge(ListNode pHead1, ListNode pHead2)
+        {
+            // write code here
+            if (pHead1 == null)
+            {
+                return pHead2;
+            }
+
+            if (pHead2 == null)
+            {
+                return pHead1;
+            }
+            var p1 = pHead1;
+            var p2 = pHead2;
+            ListNode p = null;
+            if (pHead1.val <= pHead2.val)
+            {
+                p = pHead1;
+                p1 = pHead1.next;
+            }
+            else
+            {
+                p = pHead2;
+                p2 = pHead2.next;
+            }
+
+            var head = p;
+            while (p1 != null || p2 != null)
+            {
+                if (p1 == null)
+                {
+                    p.next = p2;
+                    p = p.next;
+                    p2 = p2.next;
+                }
+                else if (p2 == null)
+                {
+                    p.next = p1;
+                    p = p.next;
+                    p1 = p1.next;
+                }
+                else
+                {
+                    if (p1.val > p2.val)
+                    {
+                        p.next = p2;
+                        p = p.next;
+                        p2 = p2.next;
+                    }
+                    else
+                    {
+                        p.next = p1;
+                        p = p.next;
+                        p1 = p1.next;
+                    }
+                }
+            }
+
+            return head;
+        }
     }
 }
