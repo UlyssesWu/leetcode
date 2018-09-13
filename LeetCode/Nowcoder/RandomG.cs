@@ -512,5 +512,33 @@ namespace LeetCode.Nowcoder
             for (int n = rows - start - 2; n >= start + 1 && columns - start - 1 > start; n--)
                 list.Add(matrix[n][start]);
         }
+
+        public bool IsPopOrder(int[] pushV, int[] popV)
+        {
+            // write code here
+            if (pushV.Length == 0)
+            {
+                return false;
+            }
+
+            if (pushV.Length != popV.Length)
+            {
+                return false;
+            }
+
+            Stack<int> s = new Stack<int>();
+            int i = 0, j = 0;
+            while (i < pushV.Length)
+            {
+                s.Push(pushV[i++]);
+                while (j < popV.Length && s.Peek() == popV[j])
+                {
+                    s.Pop();
+                    j++;
+                }
+            }
+
+            return s.Count == 0;
+        }
     }
 }
